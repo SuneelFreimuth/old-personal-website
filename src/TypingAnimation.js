@@ -14,7 +14,7 @@ function waitPromise(time) {
 
 /*
  * Wraps a piece of text and "types" the text out to the user. Some deletions
- * are added randomly.
+ * are added randomly into the animation queue.
  */
 class TypingAnimation extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class TypingAnimation extends Component {
     this.state = {
       viewString: ''
     };
-    console.log(this.props.children);
+    console.log(this.props);
     this.animationList = [];
     this.origString = this.props.children.props.children;
     this.cursorBlinking = true;
@@ -42,7 +42,7 @@ class TypingAnimation extends Component {
 
   // Generates a sleep time between hard coded limits.
   generateAnimationTime() {
-    return Math.floor(200 + 100*Math.random());
+    return Math.floor(this.props.speed + this.props.speed/2*Math.random());
   }
 
   /* 
@@ -88,12 +88,10 @@ class TypingAnimation extends Component {
   }
 
   render() {
-    // this.props.children = this.state.viewString;
-    // return this.props.children;
     return React.createElement(this.props.children.type,
       { className: this.props.children.props.className },
       this.state.viewString + ((new Date()).getSeconds() % 2 === 0 && this.cursorBlinking
-       ? '_' : '') );
+        ? '_' : '') );
   }
 }
 

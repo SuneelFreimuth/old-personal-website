@@ -20,7 +20,7 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <TypingAnimation><h1 className='App-typed-header'>Suneel Freimuth</h1></TypingAnimation>
+      <TypingAnimation speed={25}><h1>Suneel Freimuth</h1></TypingAnimation>
     </div>
   );
 }
