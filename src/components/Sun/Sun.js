@@ -41,6 +41,7 @@ export default function Sun() {
 
         for (let i = 0; i < numRays; i++) {
           let rayLength = 600*p5.noise(100*i) + 25*p5.sin(p5.frameCount*0.01+i*p5.TWO_PI/numRays*17);
+          if (rayLength < sunRadius) continue;
           p5.stroke(255, p5.map(constrain(rayLength, sunRadius, 450), sunRadius, 450, 1, 0));
           p5.line(p5.width/2, p5.height/2,
             p5.width/2  + rayLength*p5.cos(20*p5.noise(i)),
