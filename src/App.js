@@ -1,28 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import TypingAnimation from './TypingAnimation';
+import React from "react";
+import './stylesheets/App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  // Link
+} from "react-router-dom";
 
-function App() {
+import { Home, Sun } from './components';
+
+export default function App() {
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <TypingAnimation speed={25}><h1>Suneel Freimuth</h1></TypingAnimation>
-    </div>
+    <Router>
+      <div>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route exact path="/" component={Sun}/>
+          {/* <Route path="/sun" component={Sun} /> */}
+        </Switch>
+      </div>
+    </Router>
   );
 }
-
-export default App;
