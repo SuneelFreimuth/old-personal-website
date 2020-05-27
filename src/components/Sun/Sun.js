@@ -31,7 +31,7 @@ export default function Sun() {
         p5.textFont('Montserrat');
 
         numRays = 300;
-        sunRadius = 175;
+        sunRadius = 150;
       }}
 
       draw={p5 => {
