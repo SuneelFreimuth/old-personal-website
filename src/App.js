@@ -7,7 +7,7 @@ import {
   // Link
 } from "react-router-dom";
 
-import { Home, Sun } from './components';
+import { Home, Sun, Train } from './components';
 
 export default function App() {
   return (
@@ -17,6 +17,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route exact path="/" component={Sun}/>
+          <Route exact path="/2train" component={Train}/>
           {/* <Route path="/sun" component={Sun} /> */}
         </Switch>
       </div>
