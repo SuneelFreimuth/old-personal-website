@@ -7,6 +7,7 @@ import styles from './Dots.module.css';
 export default function Sun() {
   const NUM_DOTS = 9;
   const TARGET_MARGIN = 30;
+  const TOUCH_TOLERANCE = 20;
   let dots;
 
   function easeOut(t) {
@@ -45,6 +46,9 @@ export default function Sun() {
           dot.y += (dot.targY - dot.y)/5;
           p5.fill(dot.c);
           p5.ellipse(dot.x, dot.y, 2*dot.r);
+          // p5.noFill();
+          // p5.stroke(0, 100, 100);
+          // p5.ellipse(dot.x, dot.y, TOUCH_TOLERANCE*2);
         }
       }}
 
@@ -62,7 +66,7 @@ export default function Sun() {
 
       touchEnded={p5 => {
         for (let dot of dots) {
-          if (p5.dist(dot.x, dot.y, p5.mouseX, p5.mouseY) < dot.r) {
+          if (p5.dist(dot.x, dot.y, p5.mouseX, p5.mouseY) < p5.constrain(dot.r, TOUCH_TOLERANCE, dot.r)) {
             [ dot.targX, dot.targY ] = newTarget(p5);
           }
         }
