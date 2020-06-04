@@ -7,7 +7,7 @@ import styles from './Dots.module.css';
 export default function Sun() {
   const NUM_DOTS = 9;
   const TARGET_MARGIN = 30;
-  const TOUCH_TOLERANCE = 20;
+  const TOUCH_TOLERANCE = 30;
   let dots;
 
   function easeOut(t) {
