@@ -7,7 +7,7 @@ import {
   // Link
 } from "react-router-dom";
 
-import { Home, Sun, Train, Dots, Checkers } from './components';
+import { Home, Sun, Train, Dots, Checkers, Snake } from './components';
 
 export default function App() {
   return (
@@ -20,6 +20,7 @@ export default function App() {
           <Route exact path="/2train" component={Train}/>
           <Route exact path="/dots" component={Dots}/>
           <Route exact path="/checkers" component={Checkers}/>
+          <Route exact path="/snake" component={Snake}/>
           {/* <Route path="/sun" component={Sun} /> */}
         </Switch>
       </div>
