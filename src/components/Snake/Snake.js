@@ -54,7 +54,7 @@ export default function Snake() {
                     for (let touch of p5.touches) {
                         if (touch.id in prevTouchIds)
                             continue;
-                        const swipeAngle = p5.atan2(touch.x - p5.height/2, touch.y - p5.width/2);
+                        const swipeAngle = p5.atan2(touch.y - p5.height/2, touch.x - p5.width/2);
                         let move = null;
                         p5.noStroke();
                         p5.fill(255, 20);
