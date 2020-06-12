@@ -35,7 +35,7 @@ export default function Snake() {
         <Sketch
             setup={(p5, canvasParentRef) => {
                 p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
-                p5.frameRate(20);
+                p5.frameRate(p5.width > p5.height ? 20 : 12);
                 p5.noStroke();
                 SnakeGame.initialState.cols = Math.floor(p5.width / SQUARE_SIZE);
                 SnakeGame.initialState.rows = Math.floor(p5.height / SQUARE_SIZE);
