@@ -17,13 +17,16 @@ export default function Snake() {
 
     const displayGame = (p5, state) => {
         p5.fill(25);
-        const w = p5.width  - p5.floor(p5.width/SQUARE_SIZE);
-        const h = p5.height - p5.floor(p5.height/SQUARE_SIZE);
+        const w = p5.width  - p5.floor(p5.width%SQUARE_SIZE);
+        const h = p5.height - p5.floor(p5.height%SQUARE_SIZE);
         const x = (p5.width  - w) / 2;
         const y = (p5.height - h) / 2;
         p5.rect(x, y, w, h)
+        p5.push();
+        p5.translate(x, y);
         state.snake.map(p => colorSquare(p5, p[0], p[1], SNAKE_COLOR))
         colorSquare(p5, state.apple[0], state.apple[1], APPLE_COLOR)
+        p5.pop();
     }
 
     let state, nextState;
