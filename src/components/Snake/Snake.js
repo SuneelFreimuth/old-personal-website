@@ -21,7 +21,7 @@ export default function Snake() {
         const h = p5.height - p5.floor(p5.height%SQUARE_SIZE);
         const x = (p5.width  - w) / 2;
         const y = (p5.height - h) / 2;
-        p5.rect(x, y, w, h)
+        p5.rect(x, y, w, h);
         p5.push();
         p5.translate(x, y);
         state.snake.map(p => colorSquare(p5, p[0], p[1], SNAKE_COLOR))
@@ -74,6 +74,33 @@ export default function Snake() {
                     case L:
                         move = SnakeGame.EAST;
                         break;
+                }
+                if (move)
+                    state = SnakeGame.enqueueMove(state, move)
+            }}
+
+            mouseClicked={p5 => {
+                const touchX = p5.mouseX;
+                const touchY = p5.mouseY;
+                const swipeAngle = p5.atan2(touchY - p5.height/2, touchX - p5.width/2);
+                let move = null;
+                p5.noStroke();
+                p5.fill(255, 20);
+                if (swipeAngle >= -p5.QUARTER_PI && swipeAngle < p5.QUARTER_PI) {
+                    move = SnakeGame.EAST;
+                    p5.triangle(p5.width, 0, p5.width, p5.height, p5.width/2, p5.height/2);
+                }
+                else if (swipeAngle >= p5.QUARTER_PI && swipeAngle < 3*p5.QUARTER_PI) {
+                    move = SnakeGame.SOUTH;
+                    p5.triangle(p5.width, p5.height, 0, p5.height, p5.width/2, p5.height/2);
+                }
+                else if (swipeAngle >= 3*p5.QUARTER_PI || swipeAngle < -3*p5.QUARTER_PI) {
+                    move = SnakeGame.WEST;
+                    p5.triangle(0, p5.height, 0, 0, p5.width/2, p5.height/2);
+                }
+                else {
+                    move = SnakeGame.NORTH;
+                    p5.triangle(0, 0, p5.width, 0, p5.width/2, p5.height/2);
                 }
                 if (move)
                     state = SnakeGame.enqueueMove(state, move)
