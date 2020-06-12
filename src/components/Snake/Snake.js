@@ -79,7 +79,7 @@ export default function Snake() {
                     state = SnakeGame.enqueueMove(state, move)
             }}
 
-            touchEnded={p5 => {
+            touchStarted={p5 => {
                 const touchX = p5.mouseX;
                 const touchY = p5.mouseY;
                 const swipeAngle = p5.atan2(touchY - p5.height/2, touchX - p5.width/2);
