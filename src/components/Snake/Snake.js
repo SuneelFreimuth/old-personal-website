@@ -30,13 +30,15 @@ export default function Snake() {
     }
 
     let state, nextState;
+    let gameSpeed;
     let prevTouchIds = []; // Prevents one touch from spamming move enqueues
 
     return(
         <Sketch
             setup={(p5, canvasParentRef) => {
                 p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
-                p5.frameRate(p5.width > p5.height ? 20 : 12);
+                // p5.frameRate(p5.width > p5.height ? 20 : 12);
+                gameSpeed = p5.width > p5.height ? 3 : 5;
                 p5.noStroke();
                 SnakeGame.initialState.cols = Math.floor(p5.width / SQUARE_SIZE);
                 SnakeGame.initialState.rows = Math.floor(p5.height / SQUARE_SIZE);
@@ -48,38 +50,39 @@ export default function Snake() {
             draw={p5 => {
                 p5.background(40);
                 displayGame(p5, state);
-                state = nextState(state);
+                if (p5.frameCount % gameSpeed === 0)
+                    state = nextState(state);
 
-                if (p5.touches) {
-                    for (let touch of p5.touches) {
-                        if (touch.id in prevTouchIds)
-                            continue;
-                        const swipeAngle = p5.atan2(touch.y - p5.height/2, touch.x - p5.width/2);
-                        let move = null;
-                        p5.noStroke();
-                        p5.fill(255, 20);
-                        if (swipeAngle >= -p5.QUARTER_PI && swipeAngle < p5.QUARTER_PI) {
-                            move = SnakeGame.EAST;
-                            p5.triangle(p5.width, 0, p5.width, p5.height, p5.width/2, p5.height/2);
-                        }
-                        else if (swipeAngle >= p5.QUARTER_PI && swipeAngle < 3*p5.QUARTER_PI) {
-                            move = SnakeGame.SOUTH;
-                            p5.triangle(p5.width, p5.height, 0, p5.height, p5.width/2, p5.height/2);
-                        }
-                        else if (swipeAngle >= 3*p5.QUARTER_PI || swipeAngle < -3*p5.QUARTER_PI) {
-                            move = SnakeGame.WEST;
-                            p5.triangle(0, p5.height, 0, 0, p5.width/2, p5.height/2);
-                        }
-                        else {
-                            move = SnakeGame.NORTH;
-                            p5.triangle(0, 0, p5.width, 0, p5.width/2, p5.height/2);
-                        }
-                        if (move)
-                            state = SnakeGame.enqueueMove(state, move)
-                        prevTouchIds.push(touch.id);
-                    }
-                    prevTouchIds = p5.touches.map(x => x.id);
-                }
+                // if (p5.touches) {
+                //     for (let touch of p5.touches) {
+                //         if (touch.id in prevTouchIds)
+                //             continue;
+                //         const swipeAngle = p5.atan2(touch.y - p5.height/2, touch.x - p5.width/2);
+                //         let move = null;
+                //         p5.noStroke();
+                //         p5.fill(255, 20);
+                //         if (swipeAngle >= -p5.QUARTER_PI && swipeAngle < p5.QUARTER_PI) {
+                //             move = SnakeGame.EAST;
+                //             p5.triangle(p5.width, 0, p5.width, p5.height, p5.width/2, p5.height/2);
+                //         }
+                //         else if (swipeAngle >= p5.QUARTER_PI && swipeAngle < 3*p5.QUARTER_PI) {
+                //             move = SnakeGame.SOUTH;
+                //             p5.triangle(p5.width, p5.height, 0, p5.height, p5.width/2, p5.height/2);
+                //         }
+                //         else if (swipeAngle >= 3*p5.QUARTER_PI || swipeAngle < -3*p5.QUARTER_PI) {
+                //             move = SnakeGame.WEST;
+                //             p5.triangle(0, p5.height, 0, 0, p5.width/2, p5.height/2);
+                //         }
+                //         else {
+                //             move = SnakeGame.NORTH;
+                //             p5.triangle(0, 0, p5.width, 0, p5.width/2, p5.height/2);
+                //         }
+                //         if (move)
+                //             state = SnakeGame.enqueueMove(state, move)
+                //         prevTouchIds.push(touch.id);
+                //     }
+                //     prevTouchIds = p5.touches.map(x => x.id);
+                // }
             }}
 
             keyPressed={p5 => {
@@ -112,30 +115,30 @@ export default function Snake() {
             }}
 
             touchStarted={p5 => {
-                // const touchX = p5.mouseX;
-                // const touchY = p5.mouseY;
-                // const swipeAngle = p5.atan2(touchY - p5.height/2, touchX - p5.width/2);
-                // let move = null;
-                // p5.noStroke();
-                // p5.fill(255, 20);
-                // if (swipeAngle >= -p5.QUARTER_PI && swipeAngle < p5.QUARTER_PI) {
-                //     move = SnakeGame.EAST;
-                //     p5.triangle(p5.width, 0, p5.width, p5.height, p5.width/2, p5.height/2);
-                // }
-                // else if (swipeAngle >= p5.QUARTER_PI && swipeAngle < 3*p5.QUARTER_PI) {
-                //     move = SnakeGame.SOUTH;
-                //     p5.triangle(p5.width, p5.height, 0, p5.height, p5.width/2, p5.height/2);
-                // }
-                // else if (swipeAngle >= 3*p5.QUARTER_PI || swipeAngle < -3*p5.QUARTER_PI) {
-                //     move = SnakeGame.WEST;
-                //     p5.triangle(0, p5.height, 0, 0, p5.width/2, p5.height/2);
-                // }
-                // else {
-                //     move = SnakeGame.NORTH;
-                //     p5.triangle(0, 0, p5.width, 0, p5.width/2, p5.height/2);
-                // }
-                // if (move)
-                //     state = SnakeGame.enqueueMove(state, move)
+                const touchX = p5.mouseX;
+                const touchY = p5.mouseY;
+                const swipeAngle = p5.atan2(touchY - p5.height/2, touchX - p5.width/2);
+                let move = null;
+                p5.noStroke();
+                p5.fill(255, 20);
+                if (swipeAngle >= -p5.QUARTER_PI && swipeAngle < p5.QUARTER_PI) {
+                    move = SnakeGame.EAST;
+                    p5.triangle(p5.width, 0, p5.width, p5.height, p5.width/2, p5.height/2);
+                }
+                else if (swipeAngle >= p5.QUARTER_PI && swipeAngle < 3*p5.QUARTER_PI) {
+                    move = SnakeGame.SOUTH;
+                    p5.triangle(p5.width, p5.height, 0, p5.height, p5.width/2, p5.height/2);
+                }
+                else if (swipeAngle >= 3*p5.QUARTER_PI || swipeAngle < -3*p5.QUARTER_PI) {
+                    move = SnakeGame.WEST;
+                    p5.triangle(0, p5.height, 0, 0, p5.width/2, p5.height/2);
+                }
+                else {
+                    move = SnakeGame.NORTH;
+                    p5.triangle(0, 0, p5.width, 0, p5.width/2, p5.height/2);
+                }
+                if (move)
+                    state = SnakeGame.enqueueMove(state, move)
             }}
         />
     );
