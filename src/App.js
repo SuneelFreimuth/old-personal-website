@@ -6,7 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
-import { Home, Sun, Train, Checkers, Snake } from './components';
+import { Home, Sun, Train, Snake } from './components';
 
 export default function App() {
   return (
@@ -14,7 +14,6 @@ export default function App() {
       <div>
         <Switch>
           <Route path="/2train" component={Train}/>
-          <Route path="/checkers" component={Checkers}/>
           <Route path="/snake" component={Snake}/>
           <Route exact path="/" component={Sun}/>
         </Switch>
