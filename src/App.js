@@ -3,25 +3,20 @@ import './stylesheets/App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  // Link
+  Route
 } from "react-router-dom";
 
-import { Home, Sun, Train, Dots, Checkers, Snake } from './components';
+import { Home, Sun, Train, Checkers, Snake } from './components';
 
 export default function App() {
   return (
     <Router>
       <div>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
+          <Route path="/2train" component={Train}/>
+          <Route path="/checkers" component={Checkers}/>
+          <Route path="/snake" component={Snake}/>
           <Route exact path="/" component={Sun}/>
-          <Route exact path="/2train" component={Train}/>
-          <Route exact path="/dots" component={Dots}/>
-          <Route exact path="/checkers" component={Checkers}/>
-          <Route exact path="/snake" component={Snake}/>
-          {/* <Route path="/sun" component={Sun} /> */}
         </Switch>
       </div>
     </Router>
