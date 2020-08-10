@@ -15,6 +15,7 @@ export default function App() {
         <Switch>
           <Route path="/2train" component={Train}/>
           <Route path="/snake" component={Snake}/>
+          <Route path="/blog" component={Blog}/>
           <Route exact path="/" component={Sun}/>
         </Switch>
       </div>
