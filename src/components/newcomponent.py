@@ -10,7 +10,7 @@ if len(sys.argv) == 3:
     is_functional = (sys.argv[2] == 'func')
 
 os.mkdir(f'./{comp_name}')
-with open(f'./{comp_name}/{comp_name}.js', 'w') as react_file:
+with open(f'./{comp_name}/{comp_name}.tsx', 'w') as react_file:
     body = f'''export default {comp_name} = props => {{
     return(
         <div>{comp_name}</div>
