@@ -2,10 +2,12 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	height: 100%;
 }
 
-.controls {
-	
+.controls * {
+	font-size: 1.3rem;
 }
 
 
