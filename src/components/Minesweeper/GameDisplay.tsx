@@ -137,7 +137,7 @@ export default function GameDisplay(props) {
 		}
 	}
 
-	function mouseClicked(p5) {
+	function mouseReleased(p5) {
 		if (
 			p5.mouseX >= 0 &&
 			p5.mouseX < p5.width &&
@@ -170,7 +170,7 @@ export default function GameDisplay(props) {
 			preload={preload}
 			setup={setup}
 			draw={draw}
-			mouseClicked={mouseClicked}
+			mouseReleased={mouseReleased}
 			keyPressed={keyPressed}
 			touchEnded={touchEnded}
 		/>
