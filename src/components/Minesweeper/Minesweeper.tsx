@@ -4,6 +4,7 @@ import Sketch from "react-p5";
 import styles from "./Minesweeper.module.css";
 import GameDisplay from "./GameDisplay";
 import MinesweeperGame, { RunState } from "./Game";
+import { constrain } from "../../utils";
 
 export default function Minesweeper() {
 	const [rows, setRows] = useState<number>(20);
@@ -11,11 +12,11 @@ export default function Minesweeper() {
 	const [game, setGame] = useState<MinesweeperGame | null>(null);
 
 	function onRowsChange(e) {
-		setRows(Number(e.target.value));
+		setRows(constrain(Number(e.target.value), 5, 30));
 	}
 
 	function onColsChange(e) {
-		setCols(Number(e.target.value));
+		setCols(constrain(Number(e.target.value), 5, 30));
 	}
 
 	function gameDisplayMouseClick(mouseButton, r, c) {
@@ -51,14 +52,14 @@ export default function Minesweeper() {
 				<div className={styles.controls}>
 					<label htmlFor="rows">Rows</label>
 					<input
-						type="text"
+						type="number"
 						id="rows"
 						value={rows}
 						onChange={onRowsChange}
 					/>
 					<label htmlFor="">Columns</label>
 					<input
-						type="text"
+						type="number"
 						id="cols"
 						value={cols}
 						onChange={onColsChange}
@@ -67,7 +68,7 @@ export default function Minesweeper() {
 				</div>
 			);
 		} else {
-			let content = "Good luck!";
+			let content = "Press F to flag cells. Good luck!";
 			if (game !== null) {
 				if (game.runState === RunState.GAME_WIN) {
 					content = "You win!";
@@ -97,6 +98,8 @@ export default function Minesweeper() {
 
 	return (
 		<div className={styles.main}>
+			<h1 style={{ fontSize: "5rem" }}>Minesweeper</h1>
+			<h2>(Work in Progress)</h2>
 			{showControls(controlsVisible)}
 			{showGame(gameVisible)}
 		</div>

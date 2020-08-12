@@ -62,11 +62,19 @@ function showHiddenAndFlaggedSquares(p5, revealedSquaresMatrix, flagIcon) {
 		revealedSquaresMatrix.cols
 	)) {
 		if (revealedSquaresMatrix.at(loc) === RevealState.HIDDEN) {
+			p5.fill(HIDDEN_COL);
 			p5.rect(...cellCoords(loc), CELL_SIZE, CELL_SIZE);
 		}
 		if (revealedSquaresMatrix.at(loc) === RevealState.FLAGGED) {
+			p5.fill(HIDDEN_COL);
 			p5.rect(...cellCoords(loc), CELL_SIZE, CELL_SIZE);
-			p5.image(flagIcon, ...cellCoords(loc), CELL_SIZE, CELL_SIZE);
+			// p5.image(flagIcon, ...cellCoords(loc), CELL_SIZE, CELL_SIZE);
+			p5.fill(255, 0, 0);
+			p5.rect(
+				...add(cellCoords(loc), [CELL_SIZE / 8, CELL_SIZE / 6]),
+				(CELL_SIZE * 6) / 8,
+				(CELL_SIZE * 4) / 6
+			);
 		}
 	}
 }
@@ -140,6 +148,17 @@ export default function GameDisplay(props) {
 		}
 	}
 
+	function touchEnded(p5) {
+		if (
+			p5.mouseX >= 0 &&
+			p5.mouseX < p5.width &&
+			p5.mouseY >= 0 &&
+			p5.mouseY < p5.height
+		) {
+			props.onMouseClick("LEFT", ...cellAt([p5.mouseX, p5.mouseY]));
+		}
+	}
+
 	function keyPressed(p5) {
 		if (p5.key === "f") {
 			props.game.toggleFlagged(cellAt([p5.mouseX, p5.mouseY]));
@@ -153,6 +172,7 @@ export default function GameDisplay(props) {
 			draw={draw}
 			mouseClicked={mouseClicked}
 			keyPressed={keyPressed}
+			touchEnded={touchEnded}
 		/>
 	);
 }
