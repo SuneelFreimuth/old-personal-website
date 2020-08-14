@@ -1,0 +1,60 @@
+:root {
+	--background-color: #FFE;
+	--grid-line-color: #999;
+	--hidden-square-color: #DDD;
+	--hint-color: #02F;
+	--haze-color: #FFF6;
+	--fast-anim-time: 0.5s;
+	--norm-anim-time: 1.0s;
+}
+
+.gridLine {
+	stroke: var(--grid-line-color);
+}
+
+.background {
+	fill: var(--background-color);
+}
+
+.hint {
+	fill: var(--hint-color);
+	text-anchor: middle;
+}
+
+.hiddenSquare {
+	fill: var(--hidden-square-color);
+}
+
+.gameFinishHaze {
+	fill: var(--haze-color);
+	opacity: 0%;
+}
+
+
+.gameFinishText {
+	text-anchor: middle;
+	opacity: 0%;
+}
+
+.gameLose { }
+
+.gameWin { }
+
+.fadeIn {
+	opacity: 0%;
+	animation: fadeIn var(--norm-anim-time) forwards var(--fast-anim-time);
+}
+
+.fadeInFast {
+	animation: fadeIn var(--fast-anim-time);
+	opacity: 100%;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0%;
+	}
+	to {
+		opacity: 100%;
+	}
+}

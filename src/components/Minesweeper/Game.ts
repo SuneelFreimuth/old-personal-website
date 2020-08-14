@@ -92,13 +92,14 @@ export default class MinesweeperGame {
 	hintCache: Matrix<number>
 	runState: RunState
 
-	constructor(rows: number, cols: number) {
+	constructor(rows: number, cols: number, mineSpawnRate: number = 0.1) {
 		this.rows = rows
 		this.cols = cols
 		this.mines = new Matrix<boolean>(false, rows, cols)
 		this.revealedSquares = new Matrix<RevealState>(RevealState.HIDDEN, rows, cols)
 		this.hintCache = new Matrix<number>(0, rows, cols)
 		this.runState = RunState.GAME_RUNNING
+		this.loadRandomMines(mineSpawnRate)
 	}
 
 	clone(): MinesweeperGame {
@@ -153,7 +154,7 @@ export default class MinesweeperGame {
 
 	calculateHints() {
 		for (let loc of range2(this.rows, this.cols)) {
-			if (!this.mines.at(loc) && this.revealedSquares.at(loc)) {
+			if (!this.mines.at(loc) && this.revealedSquares.at(loc) === RevealState.REVEALED) {
 				const mineCount = count(x => x === true, around(this.mines, loc));
 				this.hintCache.set(loc, mineCount);
 			}

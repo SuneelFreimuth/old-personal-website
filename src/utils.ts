@@ -55,3 +55,10 @@ export function* range2(rMax: number, cMax: number): any {
 		}
 	}
 }
+
+export function unpack(classes: string, styles): string {
+	return classes
+		.split(" ")
+		.map(className => styles[className])
+		.join(" ");
+}
