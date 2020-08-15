@@ -40,7 +40,7 @@
 
 .gameWin { }
 
-.fadeIn {
+/* .fadeIn {
 	opacity: 0%;
 	animation: fadeIn var(--norm-anim-time) forwards var(--fast-anim-time);
 }
@@ -57,4 +57,4 @@
 	to {
 		opacity: 100%;
 	}
-}
+} */
