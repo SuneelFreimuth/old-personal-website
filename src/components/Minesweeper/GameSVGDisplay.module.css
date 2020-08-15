@@ -27,13 +27,13 @@
 
 .gameFinishHaze {
 	fill: var(--haze-color);
-	opacity: 0%;
+	/* opacity: 0%; */
 }
 
 
 .gameFinishText {
 	text-anchor: middle;
-	opacity: 0%;
+	/* opacity: 0%; */
 }
 
 .gameLose { }
